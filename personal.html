@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PersonalInfo</title>
+</head>
+<body>
+</ul>
+<h1>Personal Data Form</h1>
+<form id="personal-data-form">
+  <label for="name">Full Name (as per Aadhar):</label>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="dob">Date of Birth (DD/MM/YYYY):</label>
+  <input type="text" id="dob" name="dob" required><br><br>
+
+  <label for="phone">Phone Number:</label>
+  <input type="text" id="phone" name="phone" required><br><br>
+
+  <label for="address">Address:</label>
+  <input type="text" id="address" name="address" required><br><br>
+
+  <label for="email">Email:</label>
+  <input type="text" id="email" name="email" required><br><br>
+
+  <label for="marital-status">Marital Status:</label>
+  <input type="text" id="marital-status" name="marital-status" required><br><br>
+
+  <button type="submit" id="submit-button">Submit</button>
+</form>
+
+<script>
+  const form = document.querySelector('#personal-data-form');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+
+    const data = {};
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/personal-data', data);
+      console.log(response.data);
+      alert('Personal data saved successfully!');
+    } catch (error) {
+      console.error(error);
+      alert('An error occurred while saving the personal data.');
+    }
+  });
+</script>
+</body>
+</html>
